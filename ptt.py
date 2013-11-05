@@ -48,7 +48,6 @@ if __name__ == '__main__':
    boards = boardObj()
    boards.readBoardFromFile('boards.txt')
 
-
    # recv watting msg
    msg = sock.recvMsg()
    sock.printMsg(msg)
@@ -57,20 +56,14 @@ if __name__ == '__main__':
    msg = sock.recvMsg()
    sock.printMsg(msg)
    # input account and password
-   sock.sendMsg(sys.argv[1]+'\r')
-   time.sleep(1.5)
-   msg = sock.sendMsg(sys.argv[2]+'\r')
+   sock.sendMsg(sys.argv[1]+'\r'+sys.argv[2]+'\r')
    time.sleep(1.5)
    msg = sock.recvMsg()
    sock.printMsg(msg)
-   time.sleep(1)
    # go to main menue
    sock.sendMsg('\r')
    time.sleep(1.5)
    msg = sock.recvMsg()
    sock.printMsg(msg)
-
-   
-
 
    sock.closeSocket()
