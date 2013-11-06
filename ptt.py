@@ -40,6 +40,11 @@ class boardObj:
       
       print self.boardsList
       readFile.close()
+   
+   def writeBoardToFile(self, fileName,msg):
+      writeFile = open(fileName,'a')
+      writeFile.write(msg)
+      writeFile.close()
 
 if __name__ == '__main__':
 
@@ -65,5 +70,23 @@ if __name__ == '__main__':
    time.sleep(1.5)
    msg = sock.recvMsg()
    sock.printMsg(msg)
+   
+   for item in boards.boardsList:
+
+      # send search command 's'
+      sock.sendMsg('s')
+      time.sleep(0.5)
+      msg = sock.recvMsg()
+      sock.printMsg(msg)
+      
+      # send search board's name
+      searchBoardStr = item + '\r'
+      sock.sendMsg(searchBoardStr)
+      time.sleep(1)
+      msg = sock.recvMsg()
+      sock.printMsg(msg.decode('big5').encode('utf-8'))
+
+      # write get result to file
+      boards.writeBoardToFile('PTT.txt',msg)
 
    sock.closeSocket()
